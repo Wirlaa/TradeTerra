@@ -1,0 +1,105 @@
+:root {
+    --background-color: #fffcf2;
+    --margin-color: #ccc5b9;
+    --accent-color: #e4b165;
+    --primary-color: #CEAB93;
+    --secondary-color: #E3CAA5;
+    --tertiary-color: rgba(182, 165, 160, 0.32);
+    --primary-color-hover: #c68050;
+    --secondary-color-hover: #A68E6D;
+    --text-color: black;
+}
+
+.dark-theme {
+    --background-color: #1e1e1b;
+    --margin-color: #2c2b28;
+    --accent-color: #d8a657;
+    --primary-color: #554131;
+    --secondary-color: #68635c;
+    --tertiary-color: rgba(182, 165, 160, 0.2);
+    --primary-color-hover: #A67C5B;
+    --secondary-color-hover: #B8B1A4;
+    --text-color: #d6bf9e;
+}
+
+body {
+    background-color: var(--margin-color) !important;
+}
+
+.container-fluid {
+    background-color: var(--background-color);
+}
+
+.btn.btn-primary{
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.btn.btn-primary:hover {
+    background-color: var(--primary-color-hover);
+    border-color: var(--primary-color-hover);
+    color: var(--text-color);
+}
+
+.btn.btn-secondary{
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.btn.btn-secondary:hover {
+    background-color: var(--secondary-color-hover);
+    border-color: var(--secondary-color-hover);
+    color: var(--text-color);
+}
+
+/* possibly chrome only solution */
+input[type=range]::-webkit-slider-runnable-track {
+    background-color: var(--tertiary-color) !important;
+}
+.form-range::-webkit-slider-thumb {
+    background-color: var(--accent-color) !important;
+}
+
+.slider-wrapper {
+    position: relative;
+}
+
+.value-tooltip {
+    position: absolute;
+    top: -10px;
+    transform: translateX(-50%);
+    background-color: var(--tertiary-color);
+    color: var(--text-color);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#countryDropdown {
+    background-color: var(--tertiary-color);
+    color: var(--text-color);
+    border-color: var(--text-color);
+}
+
+.form-check-input {
+    width: 10rem;
+    background-color: var(--tertiary-color) !important;
+    fill: black !important;
+}
+
+.form-check-input:checked {
+    background-color: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
+}
+
+.form-check-label {
+    color: var(--text-color);
+}
+
+
+
+
+
+
