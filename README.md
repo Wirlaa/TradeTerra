@@ -41,20 +41,29 @@ It is primarily a desktop application, but mobile support would be nice to have.
 # Timeline
 Since I work better when given a rough timeline, I thought I’d include it. This doesn’t mean I’ll strictly follow through, it’s just something that I can use to motivate myself and later refer to.
 ## 01.09 - 19.10
-Take part in Web Programming course to learn the basics of front-end
+Take part in Web Programming course to learn the basics of front-end - 50h
+## 27.10 - 03.12
+Take part in Advanced Web applications course to learn basics of backend - 3h
 ## 13.10 
-Build a prototype
+Build a prototype - 4h
 ## 14.10 (today)
-Create project outline
+Create project outline - 2.45h
 ## 19.10
-Complete data visualization part (lines up with Web Programming deadline)
-## 24.10
-Follow the tutorial and set up backend with user accounts
-## 31.10
-Create simple game(s)
-## 07.11
-Make the UI user friendly 
-## 14.11, 21.11, 28.11
-Extra weeks in case I fall behind schedule
+Complete data visualization part 9h
+## 09.11
+Revise the schedule
+## 12.11
+Either learn backend or focus on the games
+Revise the schedule
+Submit weekly status report
+## 19.11
+Weekly status report
+## 26.11
+Weekly status report
 ## 03.12
 Final deadline
+
+To do:
+Follow the tutorial and set up backend with user accounts
+Create simple game(s)
+Make the UI user friendly 
