@@ -10,6 +10,18 @@
     --text-color: black;
 }
 
+/*:root {*/
+/*    --background-color: #aad3df;*/
+/*    --margin-color: #1b637e;*/
+/*    --accent-color: #24c4ff;*/
+/*    --primary-color: #49a4c6;*/
+/*    --secondary-color: #7bb1cd;*/
+/*    --tertiary-color: rgba(182, 165, 160, 0.32);*/
+/*    --primary-color-hover: #2d6f87;*/
+/*    --secondary-color-hover: #5c8295;*/
+/*    --text-color: black;*/
+/*}*/
+
 .dark-theme {
     --background-color: #1e1e1b;
     --margin-color: #2c2b28;
