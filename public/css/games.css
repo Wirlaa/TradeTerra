@@ -4,7 +4,7 @@ body {
 }
 
 .inner-bg {
-    background-image: url('trade-background.jpg');
+    background-image: url('../images/trade-background.jpg');
     background-size: cover;
     background-position: center;
 }
