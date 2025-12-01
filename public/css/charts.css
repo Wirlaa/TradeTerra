@@ -38,7 +38,7 @@ body {
     background-color: var(--margin-color) !important;
 }
 
-.container-fluid {
+#background {
     background-color: var(--background-color);
 }
 
