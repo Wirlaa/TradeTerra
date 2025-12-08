@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Trade Terra</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/src/games.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <link rel="stylesheet" href="/css/games.css">
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Trade Terra</a>
+        <ul class="navbar-nav flex-row gap-2 me-auto ">
+            <li class="nav-item">
+                <a class="nav-link active text-white" href="/charts">Charts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active text-white" href="/games">Games</a>
+            </li>
+        </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvas">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Stats</a>
+                </li>
+            </ul>
+            <form class="d-flex mt-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search"/>
+                <button class="btn btn-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid p-4">
+    <div class="container-fluid rounded-2 p-4 inner-bg">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <p class="h4 fw-bold mb-0 text-center text-md-start">Interactive</p> <!--I hate this generic word-->
+                <p class="h1 fw-bold mb-4 text-center text-md-start">TRADE GAMES</p>
+                <div class="row g-2 mb-2">
+                    <div class="col-md-5 col-4 offset-md-0 offset-2">
+                        <button class="btn btn-primary w-100" id="country">Countries</button>
+                    </div>
+                    <div class="col-md-5 col-4">
+                        <button class="btn btn-secondary w-100" id="product">Products</button>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-4 col-3 offset-md-1 offset-3">
+                        <button class="btn btn-primary w-100 btn-sm" id="export">Exports</button>
+                    </div>
+                    <div class="col-md-4 col-3">
+                        <button class="btn btn-secondary w-100 btn-sm" id="import">Imports</button>
+                    </div>
+                </div>
+
+    <!--            <p class="h4 fw-bold bg-white mt-3">Place tiles in correct order</p>&ndash;&gt;-->
+            </div>
+            <div class="col-md-6 col-lg-4 col-8">
+                <div class="shadow-sm bg-light rounded-4 p-4">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="https://flagcdn.com/w40/fi.png" class="border flag-icon" id="flag">
+                        <select class="form-select border-0 bg-transparent p-0 fs-3 mx-2 fw-semibold hover-bg-primary" id="dropdown"></select>
+                        <button class="btn btn-primary ms-auto" type="button" id="submit">Submit</button>
+                    </div>
+                    <h5 class="text-muted mb-3">Export Destinations</h5>
+                    <ul class="list-group flex-column gap-2 rounded-0" id="tiles">
+                        <li class="list-group-item tile" draggable="true"></li>
+                        <li class="list-group-item tile" draggable="true"></li>
+                        <li class="list-group-item tile" draggable="true"></li>
+                        <li class="list-group-item tile" draggable="true"></li>
+                        <li class="list-group-item tile" draggable="true"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
