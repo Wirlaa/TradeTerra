@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <title>TradeTerra</title>
-    <script src="src/vizualization.js" defer></script>
-    <link rel="stylesheet" href="css/vizualization.css">
+    <script src="/src/charts.js" defer></script>
+    <link rel="stylesheet" href="/css/charts.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -13,13 +13,13 @@
 <body>
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Trade Terra</a>
+        <a class="navbar-brand" href="/">Trade Terra</a>
         <ul class="navbar-nav flex-row gap-2 me-auto ">
             <li class="nav-item">
-                <a class="nav-link active text-white" href="vizualization.html">Vizualization</a>
+                <a class="nav-link active text-white" href="/charts">Charts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active text-white" href="games.html">Games</a>
+                <a class="nav-link active text-white" href="/games">Games</a>
             </li>
         </ul>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas">
@@ -53,7 +53,7 @@
         <input class="form-check-input" type="checkbox" role="switch" id="darkmodeSwitch">
         <label class="form-check-label" for="darkmodeSwitch">Dark mode</label>
     </div>
-    <div class="container-fluid pt-3 mt-4">
+    <div class="container-fluid pt-3 mt-4" id="background">
         <div class="d-flex flex-row w-75 mx-auto gap-2">
             <select class="form-select"  id="countryDropdown"></select>
             <div class="btn-group" role="group">

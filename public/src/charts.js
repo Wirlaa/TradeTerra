@@ -1,6 +1,6 @@
 class MainClass {
     constructor() {
-        this.tradeModes = ['Exporter', 'Importer']
+        this.tradeModes = ['export', 'import']
         this.selectedTradeMode = 0
         this.selectedCountry = 'Finland'
         this.selectedLimit = 50
@@ -9,11 +9,7 @@ class MainClass {
     }
 
     async run() {
-        this.countryToIDMap = await this.getCountryToIDMap()
-        // console.log('countryNamesToId', this.countryToIDMap)
-
-        this.countryToTradeValueMap = await this.getCountryToTradeValueMap()
-        // console.log('countryToTradeValue', this.countryToTradeValueMap)
+        this.countryToTradeValueMap = await this.fetchGet(`/api/data/${this.tradeModes[this.selectedTradeMode]}/?country=${this.selectedCountry}&limit=${this.selectedLimit}`)
 
         this.manageCountryDropdown()
         this.manageLimitSlider()
@@ -21,7 +17,7 @@ class MainClass {
         await this.manageCharts()
         this.manageDarkmode()
 
-        this.bordersData = await this.fetchGet('CNTR_RG_10M_2024_4326.geojson')
+        this.bordersData = await this.fetchGet('data/CNTR_RG_10M_2024_4326.geojson')
         this.initMap(this.bordersData)
     }
 
@@ -81,62 +77,12 @@ class MainClass {
     }
 
     /**
-     * Maps country names to their BACI string ID
-     * - technically fetches exporter countries, but conveniently it matches importer countries
-     */
-    async getCountryToIDMap() {
-        // list of exporter countries matches importer countries
-        const countryData = await this.fetchGet('https://api-v2.oec.world/tesseract/data.jsonrecords?cube=trade_i_baci_a_22&drilldowns=Exporter+Country&measures=&include=Year:2023')
-        return countryData.data.reduce((map, entry) => {
-            map[entry['Exporter Country']] = entry['Exporter Country ID']
-            return map
-        }, {})
-    }
-
-    /**
-     * Maps country names to their BACI export Trade Value for selected country
-     * - switches based on trade mode (Import/Export)
-     * - fetches for:
-     * --- desc sorted values
-     * --- only the top 'selectedlimit' rows
-     */
-    async getCountryToTradeValueMap() {
-        const countryID = this.countryToIDMap[this.selectedCountry]
-        const selectedCountryExportDataUrl = `https://api-v2.oec.world/tesseract/data.jsonrecords?cube=trade_i_baci_a_22&drilldowns=Exporter+Country,Importer+Country&measures=Trade+Value
-            &include=${this.tradeModes[this.selectedTradeMode]}+Country:${countryID},Year:2023&sort=Trade+Value.desc&limit=${this.selectedLimit},0`
-        const selectedCountryExportData = await this.fetchGet(selectedCountryExportDataUrl)
-        return selectedCountryExportData.data.reduce((map, entry) => {
-            map[entry[this.tradeModes[1 - this.selectedTradeMode] + ' Country']] = entry['Trade Value']
-            return map
-        }, {})
-    }
-
-    /**
-     * Fetches top 10 HS4 product categories for the selected country
-     * - switches based on trade mode (Import/Export)
-     */
-    async fetchTopProducts(tradeMode) {
-        const countryID = this.countryToIDMap[this.selectedCountry]
-        return this.fetchGet(`https://api-v2.oec.world/tesseract/data.jsonrecords?cube=trade_i_baci_a_22&drilldowns=HS4&measures=Trade+Value&include=${this.tradeModes[tradeMode]}+Country:${countryID},Year:2023&sort=Trade+Value.desc&limit=10,0`)
-    }
-
-    /**
-     * Calculates the maximum import/export data length for the selected country
-     */
-    async updateCountryMaxLimit() {
-        const selectedCountryExportDataUrl = `https://api-v2.oec.world/tesseract/data.jsonrecords?cube=trade_i_baci_a_22&drilldowns=Exporter+Country,Importer+Country&measures=Trade+Value
-            &include=Exporter+Country:${this.countryToIDMap[this.selectedCountry]},Year:2023`
-        const selectedCountryExportData = await this.fetchGet(selectedCountryExportDataUrl)
-        this.countryMaxLimit = selectedCountryExportData.data.length
-    }
-
-    /**
      * Refreshes the map based on the currently selected options
      * - updates limit slider as well (to match the max limit)
      */
     async refreshMap() {
         await this.updateLimitSlider()
-        this.countryToTradeValueMap = await this.getCountryToTradeValueMap()
+        this.countryToTradeValueMap = await this.fetchGet(`/api/data/${this.tradeModes[this.selectedTradeMode]}/?country=${this.selectedCountry}&limit=${this.selectedLimit}`)
         this.map.removeLayer(this.geoJsonLayer)
         this.geoJsonLayer = L.geoJSON(this.bordersData, {
             onEachFeature: this.getFeature.bind(this),
@@ -148,10 +94,11 @@ class MainClass {
     /**
      * Sets up and controls the country dropdown menu
      */
-    manageCountryDropdown() {
+    async manageCountryDropdown() {
         const select = document.getElementById('countryDropdown')
         const fragment = document.createDocumentFragment()
-        Object.keys(this.countryToIDMap).sort().forEach(country => {
+        const countries = await this.fetchGet(`/api/data/countries`)
+        countries.sort().forEach(country => {
             const option = document.createElement('option')
             option.text = country
             option.value = country
@@ -178,7 +125,8 @@ class MainClass {
         let sliderSteps
 
         this.updateLimitSlider = async () => {
-            await this.updateCountryMaxLimit()
+            this.countryMaxLimit = Object.keys(await this.fetchGet(`/api/data/${this.tradeModes[this.selectedTradeMode]}/?country=${this.selectedCountry}`)).length
+            console.log(this.countryMaxLimit)
             let originalSteps = [10, 25, 50, 100, 200]
             sliderSteps = originalSteps.filter(step => step <= this.countryMaxLimit)
             if (this.countryMaxLimit > sliderSteps[sliderSteps.length - 1]) sliderSteps.push(this.countryMaxLimit)
@@ -220,6 +168,7 @@ class MainClass {
         }
 
         exportButton.addEventListener('click', () => {
+            if (this.selectedTradeMode === 0) return
             switchClass(importButton)
             switchClass(exportButton)
             this.selectedTradeMode = 0
@@ -227,6 +176,7 @@ class MainClass {
         })
 
         importButton.addEventListener('click', () => {
+            if (this.selectedTradeMode === 1) return
             switchClass(importButton)
             switchClass(exportButton)
             this.selectedTradeMode = 1
@@ -284,7 +234,7 @@ class MainClass {
         }
 
         const createChart = async (chart, tradeMode) => {
-            const products = await this.fetchTopProducts(tradeMode)
+            const products = await this.fetchGet(`/api/data/${this.tradeModes[tradeMode]}/products/?country=${this.selectedCountry}`)
             return new Chart(chart, {
                 type: 'doughnut',
                 data: {
@@ -325,7 +275,7 @@ class MainClass {
             const color = this.darkModeOn ? '#d6bf9e' : 'black'
             chart.options.plugins.labelsPlugin.color = color
             chart.options.plugins.title.color = color
-            const products = await this.fetchTopProducts(tradeMode)
+            const products = await this.fetchGet(`/api/data/${this.tradeModes[tradeMode]}/products/?country=${this.selectedCountry}`)
             chart.data.labels = products.data.map(item => item['HS4'])
             chart.data.datasets[0].data = products.data.map(item => item['Trade Value'])
             chart.update()
