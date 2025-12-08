@@ -74,7 +74,6 @@ const manageCountryDropdown = async () => {
     const select = document.getElementById('dropdown')
     const fragment = document.createDocumentFragment()
     const countries = await (await fetch(`/api/data/countries`)).json()
-    console.log(await (await fetch(`https://flagcdn.com/en/codes.json`)).json())
     countries.sort().forEach(country => {
         const option = document.createElement('option')
         option.text = country
@@ -115,10 +114,21 @@ new Sortable(tiles, {
     }
 })
 
-document.getElementById("submit").addEventListener("click", () => {
+document.getElementById("submit").addEventListener("click", async () => {
     const tiles = Array.from(document.getElementById("tiles").children)
     const currentOrder = tiles.map(item => item.textContent)
-    console.log(currentOrder.every((name, i) => name === names[i]))
+    // console.log(currentOrder.every((name, i) => name === names[i]))
+
+    await fetch('/api/stats/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            userId: "69275cc6b2bbf44cb047a071",
+            gameTag: `${selectedCountry}-${modes.trade[modes.trade[0] + 1]}-${modes.game[modes.game[0] + 1]}`,
+            correctOnFirstGuess: currentOrder.filter((name, i) => name === names[i]).length,
+            solved: currentOrder.every((name, i) => name === names[i])
+        })
+    })
 
     tiles.forEach((tile, i) => {
         if (tile.textContent === names[i]) {

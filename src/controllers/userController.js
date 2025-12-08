@@ -24,7 +24,6 @@ const registerUser = async (req, res) => {
             password: hashedPassword,
         })
 
-
         res.status(201).json({
             id: user._id,
             username: user.username,
