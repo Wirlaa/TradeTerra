@@ -6,6 +6,7 @@ import { fileURLToPath } from "url"
 import userRouter from './src/routes/userRoutes.js'
 import viewRouter from './src/routes/viewRoutes.js'
 import dataRouter from './src/routes/dataRoutes.js'
+import statsRouter from './src/routes/statsRoutes.js'
 
 dotenv.config()
 
@@ -26,6 +27,7 @@ app.use(express.static(fileURLToPath(new URL('./public', import.meta.url))))
 app.use("/", viewRouter)
 app.use("/api/users", userRouter)
 app.use("/api/data", dataRouter)
+app.use("/api/stats", statsRouter)
 
 // app.get('/', (req, res) => {
 //     res.send('Hello World from Express!')
