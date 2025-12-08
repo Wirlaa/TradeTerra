@@ -168,6 +168,7 @@ class MainClass {
         }
 
         exportButton.addEventListener('click', () => {
+            if (this.selectedTradeMode === 0) return
             switchClass(importButton)
             switchClass(exportButton)
             this.selectedTradeMode = 0
@@ -175,6 +176,7 @@ class MainClass {
         })
 
         importButton.addEventListener('click', () => {
+            if (this.selectedTradeMode === 1) return
             switchClass(importButton)
             switchClass(exportButton)
             this.selectedTradeMode = 1

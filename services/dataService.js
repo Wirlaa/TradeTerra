@@ -102,7 +102,7 @@ export const getExportProductsTop10 = async (country) => {
     const countryData = countryCache[country]
 
     if (countryData.exportProductsTop10) {
-        console.log("cache hit ex p", country)
+        console.log("cache hit ex p", country, countryData.countryID)
         return countryData.exportProductsTop10
     }
     try {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Trade Terra: Games</title>
+    <title>Trade Terra</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/src/games.js" defer></script>
@@ -59,18 +59,18 @@
                 <p class="h1 fw-bold mb-4 text-center text-md-start">TRADE GAMES</p>
                 <div class="row g-2 mb-2">
                     <div class="col-md-5 col-4 offset-md-0 offset-2">
-                        <button class="btn btn-primary w-100">Countries</button>
+                        <button class="btn btn-primary w-100" id="country">Countries</button>
                     </div>
                     <div class="col-md-5 col-4">
-                        <button class="btn btn-secondary w-100">Products</button>
+                        <button class="btn btn-secondary w-100" id="product">Products</button>
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="col-md-4 col-3 offset-md-1 offset-3">
-                        <button class="btn btn-primary w-100 btn-sm">Exports</button>
+                        <button class="btn btn-primary w-100 btn-sm" id="export">Exports</button>
                     </div>
                     <div class="col-md-4 col-3">
-                        <button class="btn btn-secondary w-100 btn-sm">Imports</button>
+                        <button class="btn btn-secondary w-100 btn-sm" id="import">Imports</button>
                     </div>
                 </div>
 
@@ -79,30 +79,23 @@
             <div class="col-md-6 col-lg-4 col-8">
                 <div class="shadow-sm bg-light rounded-4 p-4">
                     <div class="d-flex align-items-center mb-2">
-                        <img src="https://flagcdn.com/w40/fi.png" class="border flag-icon">
-                        <p class="h3 m-0">Finland</p>
+                        <img src="https://flagcdn.com/w40/fi.png" class="border flag-icon" id="flag">
+                        <select class="form-select border-0 bg-transparent p-0 fs-3 mx-2 fw-semibold hover-bg-primary" id="dropdown"></select>
+                        <button class="btn btn-primary ms-auto" type="button" id="submit">Submit</button>
                     </div>
                     <h5 class="text-muted mb-3">Export Destinations</h5>
                     <ul class="list-group flex-column gap-2 rounded-0" id="tiles">
-                        <li class="list-group-item tile" draggable="true">Tile 1</li>
-                        <li class="list-group-item tile" draggable="true">Tile 2</li>
-                        <li class="list-group-item tile" draggable="true">Tile 3</li>
-                        <li class="list-group-item tile" draggable="true">Tile 4</li>
-                        <li class="list-group-item tile" draggable="true">Tile 5</li>
+                        <li class="list-group-item tile" draggable="true"></li>
+                        <li class="list-group-item tile" draggable="true"></li>
+                        <li class="list-group-item tile" draggable="true"></li>
+                        <li class="list-group-item tile" draggable="true"></li>
+                        <li class="list-group-item tile" draggable="true"></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    new Sortable(tiles, {
-        animation: 150,
-        ghostClass: "bg-light"
-    });
-</script>
-
 </body>
 </html>
 
