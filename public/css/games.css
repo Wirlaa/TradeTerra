@@ -14,10 +14,13 @@ body {
     height: 2rem;
     object-fit: cover;
     border-radius: 4px;
-    margin-right: 10px;
 }
 
 .tile {
     cursor: grab;
     user-select: none;
+}
+
+#dropdown:hover {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
