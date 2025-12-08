@@ -2,7 +2,10 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import mongoose from 'mongoose'
-import router from './routes/userRoutes.js' //must have .js when not using ts
+import { fileURLToPath } from "url"
+import userRouter from './src/routes/userRoutes.js'
+import viewRouter from './src/routes/viewRoutes.js'
+import dataRouter from './src/routes/dataRoutes.js'
 
 dotenv.config()
 
@@ -13,15 +16,19 @@ mongoose.connect(process.env.MONGODB_URI)
 
 const app = express()
 app.use(express.json())
-app.use(cors({
-    origin: process.env.ORIGIN,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-}))
-app.use("/api/users", router) //my changes, make sure it doesn't break
+// app.use(cors({
+//     origin: process.env.ORIGIN,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     credentials: true,
+// }))
 
-app.get('/', (req, res) => {
-    res.send('Hello World from Express!')
-})
+app.use(express.static(fileURLToPath(new URL('./public', import.meta.url))))
+app.use("/", viewRouter)
+app.use("/api/users", userRouter)
+app.use("/api/data", dataRouter)
+
+// app.get('/', (req, res) => {
+//     res.send('Hello World from Express!')
+// })
 
 app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`))
