@@ -23,6 +23,7 @@ app.use(express.json())
 //     credentials: true,
 // }))
 
+app.set('view engine', 'ejs')
 app.use(express.static(fileURLToPath(new URL('./public', import.meta.url))))
 app.use("/", viewRouter)
 app.use("/api/users", userRouter)
