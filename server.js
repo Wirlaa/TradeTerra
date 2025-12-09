@@ -26,7 +26,7 @@ app.use(express.json())
 app.set('view engine', 'ejs')
 app.use(express.static(fileURLToPath(new URL('./public', import.meta.url))))
 app.use("/", viewRouter)
-app.use("/api/users", userRouter)
+app.use("/api/user", userRouter)
 app.use("/api/data", dataRouter)
 app.use("/api/stats", statsRouter)
 
