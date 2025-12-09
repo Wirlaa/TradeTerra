@@ -9,7 +9,11 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
+<<<<<<< Updated upstream
     "cors": "^2.8.5",
+=======
+    "bcryptjs": "^3.0.3",
+>>>>>>> Stashed changes
     "dotenv": "^17.2.3",
     "express": "^5.1.0"
   },

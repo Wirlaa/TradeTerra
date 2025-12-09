@@ -106,6 +106,19 @@ const updateTiles = () => {
     })
 }
 
+<<<<<<< Updated upstream
+=======
+const updateStats = async () => {
+    if (!localStorage.getItem("token")) return
+    const stats = await (await fetch(`/api/stats/${localStorage.getItem("username")}`,
+        {method: "GET", headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}})).json()
+    const totalGames = stats.length
+    document.getElementById("totalGames").textContent = totalGames
+    document.getElementById("firstGuessSuccess").textContent = stats.length !== 0 ? (stats.reduce((acc, s) => acc + s.correctOnFirstGuess, 0) / totalGames).toFixed(2) : 0
+    document.getElementById("avgGuesses").textContent = stats.length !== 0 ? (stats.reduce((acc, s) => acc + s.guessCount, 0) / totalGames).toFixed(2) : 0
+}
+
+>>>>>>> Stashed changes
 new Sortable(tiles, {
     animation: 150,
     ghostClass: "bg-light",
@@ -121,12 +134,33 @@ document.getElementById("submit").addEventListener("click", () => {
     console.log(currentOrder.every((name, i) => name === names[i]))
 
     tiles.forEach((tile, i) => {
-        if (tile.textContent === names[i]) {
-            tile.classList.add('bg-success')
-        } else {
-            tile.classList.remove('bg-success')
-        }
+        if (tile.textContent === names[i]) tile.classList.add('bg-success')
+        else tile.classList.remove('bg-success')
     })
+<<<<<<< Updated upstream
+=======
+
+    if (!tiles.some((tile, i) => tile.textContent === names[i])) {
+        tiles.forEach(tile => {
+            tile.classList.add('bg-danger-subtle')
+            setTimeout(() => tile.classList.remove('bg-danger-subtle'), 250)
+        })
+    }
+
+    const userId = await (await fetch(`/api/user/${localStorage.getItem("username")}`)).json()
+    if (!userId) return
+    await fetch('/api/stats/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${localStorage.getItem("token")}`},
+        body: JSON.stringify({
+            userId: userId,
+            gameTag: `${selectedCountry}-${modes.trade[modes.trade[0] + 1]}-${modes.game[modes.game[0] + 1]}`,
+            correctOnFirstGuess: currentOrder.filter((name, i) => name === names[i]).length,
+            solved: currentOrder.every((name, i) => name === names[i])
+        })
+    })
+    updateStats()
+>>>>>>> Stashed changes
 })
 
 initNames()
