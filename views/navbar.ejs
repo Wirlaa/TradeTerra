@@ -23,7 +23,7 @@
 
     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvas">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas</h5>
+            <h5 class="offcanvas-title" id="offcanvasLabel">Profile</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body" id="offcanvasContent">
@@ -35,6 +35,12 @@
             </div>
             <div id="offcanvasRegister" style="display:none">
                 <%- include('offcanvasRegister') %>
+            </div>
+            <div id="offcanvasLoggedIn" style="display:none">
+                <%- include('offcanvasLoggedIn') %>
+            </div>
+            <div id="offcanvasAbout" style="display:none">
+                <%- include('offcanvasAbout') %>
             </div>
         </div>
     </div>
