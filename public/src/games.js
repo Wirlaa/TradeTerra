@@ -105,6 +105,17 @@ const updateTiles = () => {
     })
 }
 
+const updateStats = async () => {
+    if (!localStorage.getItem("token")) return
+    const stats = await (await fetch(`/api/stats/${localStorage.getItem("username")}`,
+        {method: "GET", headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}})).json()
+    console.log(stats)
+    const totalGames = stats.length
+    document.getElementById("totalGames").textContent = totalGames
+    document.getElementById("firstGuessSuccess").textContent = (stats.reduce((acc, s) => acc + s.correctOnFirstGuess, 0) / totalGames).toFixed(2)
+    document.getElementById("avgGuesses").textContent = (stats.reduce((acc, s) => acc + s.guessCount, 0) / totalGames).toFixed(2)
+}
+
 new Sortable(tiles, {
     animation: 150,
     ghostClass: "bg-light",
@@ -117,18 +128,6 @@ new Sortable(tiles, {
 document.getElementById("submit").addEventListener("click", async () => {
     const tiles = Array.from(document.getElementById("tiles").children)
     const currentOrder = tiles.map(item => item.textContent)
-    // console.log(currentOrder.every((name, i) => name === names[i]))
-
-    await fetch('/api/stats/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            userId: "69275cc6b2bbf44cb047a071",
-            gameTag: `${selectedCountry}-${modes.trade[modes.trade[0] + 1]}-${modes.game[modes.game[0] + 1]}`,
-            correctOnFirstGuess: currentOrder.filter((name, i) => name === names[i]).length,
-            solved: currentOrder.every((name, i) => name === names[i])
-        })
-    })
 
     tiles.forEach((tile, i) => {
         if (tile.textContent === names[i]) {
@@ -137,10 +136,25 @@ document.getElementById("submit").addEventListener("click", async () => {
             tile.classList.remove('bg-success')
         }
     })
+
+    const userId = await (await fetch(`/api/user/${localStorage.getItem("username")}`)).json()
+    if (!userId) return
+    await fetch('/api/stats/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${localStorage.getItem("token")}`},
+        body: JSON.stringify({
+            userId: userId,
+            gameTag: `${selectedCountry}-${modes.trade[modes.trade[0] + 1]}-${modes.game[modes.game[0] + 1]}`,
+            correctOnFirstGuess: currentOrder.filter((name, i) => name === names[i]).length,
+            solved: currentOrder.every((name, i) => name === names[i])
+        })
+    })
+    updateStats()
 })
 
 initNames()
 initCodeMap()
+updateStats()
 manageButtons('country', 'product', modes.game)
 manageButtons('export', 'import', modes.trade)
 manageCountryDropdown()
