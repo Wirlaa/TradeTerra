@@ -43,7 +43,7 @@ Since I work better when given a rough timeline, I thought I’d include it. Thi
 ## 01.09 - 19.10
 Take part in Web Programming course to learn the basics of front-end - 50h
 ## 27.10 - 03.12
-Take part in Advanced Web applications course to learn basics of backend - 18h
+Take part in Advanced Web applications course to learn basics of backend - 27h
 ## 13.10 
 Build a prototype - 4h
 ## 14.10 (today)
@@ -57,12 +57,16 @@ Learn about TypeScript - 8h
 Submit weekly status report - 45min
 ## 26.11
 Learn about Node.js and MongoDb - 10h
-Weekly status report 
-## 03.12
+Weekly status report - 30min
+## 29.11, 30.11
+Design and implement game UI - 9h 45min
+## 01.12
+Implement data service and caching - 6h 15min
+## 08.12
+Implement statistics and final backend - 7h 30min
+## 09.12
+Write documentation - 4h 15min
+## 10.12
+Final fixes - 3h 15min
+Final documentation - 4h 30min
 Final deadline
-
-To do:
-Set up backend with user accounts
-Create two games:
-- game 1: for a given country, you get 5 of their biggest trade partners and you have to arrange them correctly (import/export)
-- game 2: for a given country, you get their 5 biggest products (imports/export) and you have to arrange them correctly
