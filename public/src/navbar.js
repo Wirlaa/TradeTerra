@@ -66,7 +66,7 @@ document.getElementById("registerForm").addEventListener("submit", async e => {
             },
             body: JSON.stringify(formData)
         })
-        if (!response.ok) console.log(`Error when trying to register: ${await response.json()}. Please try again.`)
+        if (!response.ok) showBootstrapError(`${await response.json()}. Please try again.`)
         else displaySection('offcanvasLogin')
     } catch (error) {
         console.log(`Error while trying to register: ${error.message}`)
@@ -88,14 +88,15 @@ document.getElementById("loginForm").addEventListener("submit", async e => {
             },
             body: JSON.stringify(formData)
         })
-        if (!response.ok) console.log(`Error when trying to login: ${await response.json()}. Please try again.`)
+        const data = await response.json()
+        if (!response.ok) showBootstrapError(`${data}. Please try again.`)
         else {
-            const data = await response.json()
             if (data.token) {
                 localStorage.setItem("token", data.token)
                 localStorage.setItem("username", e.target.loginUsername.value)
                 displaySection('offcanvasLoggedIn')
                 document.getElementById("usernameText").innerText = e.target.loginUsername.value
+                updateStats()
             }
         }
     } catch (error) {
@@ -109,3 +110,34 @@ document.getElementById('logout-link').addEventListener('click', (e) => {
     localStorage.removeItem("username")
     displaySection('offcanvasMain')
 })
+
+//gpt generated error message
+function showBootstrapError(message) {
+    let container = document.getElementById("toast-container")
+    if (!container) {
+        container = document.createElement("div")
+        container.id = "toast-container"
+        container.className = "position-fixed bottom-0 end-0 p-3"
+        container.style.zIndex = 9999
+        document.body.appendChild(container)
+    }
+
+    const toastEl = document.createElement("div")
+    toastEl.className = "toast align-items-center text-bg-danger border-0"
+    toastEl.role = "alert"
+    toastEl.ariaLive = "assertive"
+    toastEl.ariaAtomic = "true"
+
+    toastEl.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">
+        ${message}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>`
+    container.appendChild(toastEl)
+
+    const toast = new bootstrap.Toast(toastEl, { delay: 3000 })
+    toast.show();
+    toastEl.addEventListener("hidden.bs.toast", () => toastEl.remove())
+}

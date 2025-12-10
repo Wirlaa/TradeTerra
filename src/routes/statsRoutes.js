@@ -15,7 +15,7 @@ router.post('/submit', validate, async (req, res) => {
         })
         return res.status(201).json("Stats created successfully.")
     }
-    if (gameStats.solvedAt) return res.status(200).json("Game already solved.")
+    if (gameStats.solvedAt) return res.status(400).json("Game already solved.")
     gameStats.guessCount++
     if (req.body.solved) gameStats.solvedAt = new Date()
     await gameStats.save()

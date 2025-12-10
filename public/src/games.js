@@ -107,13 +107,14 @@ const updateTiles = () => {
 
 const updateStats = async () => {
     if (!localStorage.getItem("token")) return
-    const stats = await (await fetch(`/api/stats/${localStorage.getItem("username")}`,
-        {method: "GET", headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}})).json()
-    console.log(stats)
+    const response = await fetch(`/api/stats/${localStorage.getItem("username")}`,
+        {method: "GET", headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}})
+    const stats = await response.json()
+    if (!response.ok) showBootstrapError(stats)
     const totalGames = stats.length
     document.getElementById("totalGames").textContent = totalGames
-    document.getElementById("firstGuessSuccess").textContent = (stats.reduce((acc, s) => acc + s.correctOnFirstGuess, 0) / totalGames).toFixed(2)
-    document.getElementById("avgGuesses").textContent = (stats.reduce((acc, s) => acc + s.guessCount, 0) / totalGames).toFixed(2)
+    document.getElementById("firstGuessSuccess").textContent = stats.length !== 0 ? (stats.reduce((acc, s) => acc + s.correctOnFirstGuess, 0) / totalGames).toFixed(2) : 0
+    document.getElementById("avgGuesses").textContent = stats.length !== 0 ? (stats.reduce((acc, s) => acc + s.guessCount, 0) / totalGames).toFixed(2) : 0
 }
 
 new Sortable(tiles, {
@@ -134,9 +135,17 @@ document.getElementById("submit").addEventListener("click", async () => {
         else tile.classList.remove('bg-success')
     })
 
-    const userId = await (await fetch(`/api/user/${localStorage.getItem("username")}`)).json()
-    if (!userId) return
-    await fetch('/api/stats/submit', {
+    if (!tiles.some((tile, i) => tile.textContent === names[i])) {
+        tiles.forEach(tile => {
+            tile.classList.add('bg-danger')
+            setTimeout(() => tile.classList.remove('bg-danger'), 250)
+        })
+    }
+    let response = await fetch(`/api/user/${localStorage.getItem("username")}`)
+    if (!response.ok) return
+    const userId = await response.json()
+    console.log("here")
+    response = await fetch('/api/stats/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${localStorage.getItem("token")}`},
         body: JSON.stringify({
@@ -146,6 +155,7 @@ document.getElementById("submit").addEventListener("click", async () => {
             solved: currentOrder.every((name, i) => name === names[i])
         })
     })
+    if (!response.ok) showBootstrapError(await response.json())
     updateStats()
 })
 

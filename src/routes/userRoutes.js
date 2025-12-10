@@ -30,12 +30,12 @@ router.post('/login', async (req, res) => {
     if (!username || !password) return res.status(400).json("All fields are required")
     try {
         let user = await User.findOne({ username })
-        if (!user) return res.status(401).json("Login failed")
+        if (!user) return res.status(401).json("User doesn't exist")
         if (bcrypt.compareSync(password, user.password)) {
             const token = jwt.sign({ username: username}, process.env.SECRET, { expiresIn: "1d"})
             return res.status(200).json({success: true, token})
         }
-        return res.status(401).json("Login failed")
+        return res.status(401).json("Password doesn't match")
     } catch (error) {
         res.status(500).json(error.message )
     }
