@@ -130,11 +130,8 @@ document.getElementById("submit").addEventListener("click", async () => {
     const currentOrder = tiles.map(item => item.textContent)
 
     tiles.forEach((tile, i) => {
-        if (tile.textContent === names[i]) {
-            tile.classList.add('bg-success')
-        } else {
-            tile.classList.remove('bg-success')
-        }
+        if (tile.textContent === names[i]) tile.classList.add('bg-success')
+        else tile.classList.remove('bg-success')
     })
 
     const userId = await (await fetch(`/api/user/${localStorage.getItem("username")}`)).json()

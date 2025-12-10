@@ -17,11 +17,6 @@ mongoose.connect(process.env.MONGODB_URI)
 
 const app = express()
 app.use(express.json())
-// app.use(cors({
-//     origin: process.env.ORIGIN,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//     credentials: true,
-// }))
 
 app.set('view engine', 'ejs')
 app.use(express.static(fileURLToPath(new URL('./public', import.meta.url))))
@@ -29,9 +24,5 @@ app.use("/", viewRouter)
 app.use("/api/user", userRouter)
 app.use("/api/data", dataRouter)
 app.use("/api/stats", statsRouter)
-
-// app.get('/', (req, res) => {
-//     res.send('Hello World from Express!')
-// })
 
 app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`))
