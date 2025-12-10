@@ -5,52 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/src/games.js" defer></script>
+    <script src="/src/navbar.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
     <link rel="stylesheet" href="/css/games.css">
 </head>
-
 <body>
-
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">Trade Terra</a>
-        <ul class="navbar-nav flex-row gap-2 me-auto ">
-            <li class="nav-item">
-                <a class="nav-link active text-white" href="/charts">Charts</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active text-white" href="/games">Games</a>
-            </li>
-        </ul>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-
-    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvas">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-        </div>
-        <div class="offcanvas-body">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Stats</a>
-                </li>
-            </ul>
-            <form class="d-flex mt-3" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search"/>
-                <button class="btn btn-success" type="submit">Search</button>
-            </form>
-        </div>
-    </div>
-</nav>
-
+<%- include('navbar') %>
 <div class="container-fluid p-4">
     <div class="container-fluid rounded-2 p-4 inner-bg">
         <div class="row justify-content-center">

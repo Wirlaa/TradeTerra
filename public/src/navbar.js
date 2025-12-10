@@ -96,7 +96,6 @@ document.getElementById("loginForm").addEventListener("submit", async e => {
                 localStorage.setItem("username", e.target.loginUsername.value)
                 displaySection('offcanvasLoggedIn')
                 document.getElementById("usernameText").innerText = e.target.loginUsername.value
-                updateStats()
             }
         }
     } catch (error) {

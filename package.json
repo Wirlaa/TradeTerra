@@ -9,13 +9,15 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
-<<<<<<< Updated upstream
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
 =======
     "bcryptjs": "^3.0.3",
->>>>>>> Stashed changes
     "dotenv": "^17.2.3",
-    "express": "^5.1.0"
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
